@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "324102370873",
+    "project_id": "spartan-theorem-305918",
+    "storage_bucket": "spartan-theorem-305918.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:324102370873:android:97d321fa1f24f2c82cbfe8",
+        "android_client_info": {
+          "package_name": "com.example.surakshaapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "324102370873-de3eslbl81c7gqqjpjt3pkbd89qiv7ch.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAPsrwXi98pwHP9yoz4HO5eRIawldhYRRQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "324102370873-de3eslbl81c7gqqjpjt3pkbd89qiv7ch.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
