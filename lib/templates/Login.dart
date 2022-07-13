@@ -8,19 +8,20 @@ import 'package:otp_text_field/style.dart';
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import '../Widgets.dart';
+import 'package:surakshaapp/Widgets.dart';
 
 
-class LandLogin extends StatelessWidget {
+class Login extends StatelessWidget {
   ///////////////////////////////variables used
   TextEditingController mobno = new TextEditingController();
   var height;
   var width;
+  Widgets _widget = Widgets();
   late AuthCredential authCred;
   late String vefID;
   late int smscode;
   late User user;
-  Widgets obj = Widgets();
+
 
   //////////////////////////////functions
   /*
@@ -112,7 +113,6 @@ class LandLogin extends StatelessWidget {
 
     return Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: AppBar(backgroundColor: Colors.black38, title: Center(child:Text('Suraksha'))),
         body:
         SizedBox(
             height: height,
@@ -121,30 +121,12 @@ class LandLogin extends StatelessWidget {
               Carousel(
                   images:
                   [
-                    Container(
-                        height: height,
-                        width: width,
-
-                        child:
-                        landing(context)
-
-                    ),
-
-
-                    Container(
-                        height: height,
-                        width: width,
-                        padding: EdgeInsets.all(40.0),
-                        decoration: BoxDecoration(
-                            image: DecorationImage(
-                                image:AssetImage('assets/template.png'),
-                                fit: BoxFit.cover
-                            )
-                        ),
-                        child:
-                        login(context)
-
-                    )
+                    _widget.container(height, width, EdgeInsets.zero, landing(context),BoxDecoration()),
+                    _widget.container(height, width, EdgeInsets.all(40.0), login(context),BoxDecoration(
+                        image: DecorationImage(
+                        image:AssetImage('assets/template.png'),
+                        fit: BoxFit.cover
+                    )))
                   ],
 
                 dotSize: 4.0,
@@ -160,108 +142,68 @@ class LandLogin extends StatelessWidget {
     );
   }
 
-  /////////////////////////////widgets
+  /////////////////////////////_widgets
 
   Widget login(BuildContext context)
   {
 
     return Column(
-
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        SizedBox(
-          height: height/4,
-          width: width,
-        ),
+        _widget.sizedbox(height/4, width),
         Row(
           children: [
-            Text('If you are a',style: TextStyle(fontFamily: 'Staatliches',fontSize: 30)),
-            Text('Member',style: TextStyle(fontFamily: 'Staatliches',fontSize: 32,color: Colors.blue )),
+            _widget.text('If you are a','Staatliches',30, FontWeight.normal, Colors.black),
+            _widget.text('Member','Staatliches',32, FontWeight.normal, Colors.blue)
           ]
         ),
-        SizedBox(
-          height: 20,
-          width: width,
-        ),
-        TextField(
-          keyboardType: TextInputType.number,
-          decoration: InputDecoration(
-              labelText: 'Mobile Number',
-              hintText: 'Enter your mobile number',
-              border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(50)
-              )
-          ),
-          controller: mobno,
-        ),
-        SizedBox(
-          height: 20,
-          width: width,
-        ),
+        //_widget.sizedbox(height/20, width),
+        _widget.textfield(TextInputType.number,'Mobile Number','Enter your mobile number',BorderRadius.circular(50),mobno),
+       // _widget.sizedbox(height/20, width),
         ElevatedButton(
             onPressed: (){
               //authenticationbyphone(context);
-              Navigator.pushNamed(context, 'New', arguments: {'key':'8978373698', 'type':'Member'});
+              Navigator.pushNamed(context, 'Member', arguments: {'phno':'8978373698'});
               print('clicked sign in');
             },
             style: ElevatedButton.styleFrom(primary: Colors.green),
             child:
             Text('SIGN IN')
         ),
-        SizedBox(
-          height: 20,
-          width: width,
-        ),
+        //_widget.sizedbox(height/20, width),
         Row(
             children: [
-              Text('If you are an',style: TextStyle(fontFamily: 'Staatliches',fontSize: 30)),
-              Text('NGO',style: TextStyle(fontFamily: 'Staatliches',fontSize: 32,color: Colors.red )),
+              _widget.text('If you are an','Staatliches',30, FontWeight.normal, Colors.black),
+              _widget.text('NGO','Staatliches',32, FontWeight.normal, Colors.red)
             ]
         ),
-        SizedBox(
-          height: 20,
-          width: width,
-        ),
+        //_widget.sizedbox(height/20, width),
         SignInButton(
           Buttons.Google,
           onPressed: () {
             //authenticationbymail(context);
             Navigator.pushNamed(context,'Ngo',arguments: {'mailid':'ktirumalla67@gmail.com'});
             print('clicked sign in');
-          },
+          }
         ),
-        SizedBox(
-          height: 20,
-          width: width,
-        )
+        _widget.sizedbox(height/8, width),
       ],
     );
   }
 
   Widget landing(BuildContext context)
   {
-    return
-    Column(
-
+    return Column(
       children: [
         Expanded(
           //padding: EdgeInsets.fromLTRB(40, 10, 40, 10),
             child:
             Image.asset('assets/Logo.png',height: height/3,width:width/2)
         ),
-
-        Text('Suraksha',style: TextStyle(fontFamily: 'Staatliches',fontSize: 40)),
-
-        SizedBox(
-          width: width,
-          height: (1/5) * height,
-        ),
-
-        Text('Slide to continue',style: TextStyle(fontFamily: 'Staatliches',fontSize: 20)),
-
-        SizedBox(
-          width: width,
-          height: (1/10) * height,
-        ),
+        _widget.text('Suraksha','Staatliches',40, FontWeight.normal, Colors.black),
+        _widget.sizedbox((1/5) * height, width),
+        _widget.text('Slide to continue','Staatliches',30, FontWeight.normal, Colors.black),
+        _widget.sizedbox((1/10) * height, width)
       ],
     );
   }

@@ -17,6 +17,7 @@ import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:surakshaapp/DOB.dart';
 
 class Addorphan extends StatefulWidget {
 
@@ -28,12 +29,13 @@ class _entryState extends State<Addorphan> {
 
   ///////////////////////////////variables used
   var height;
-  var imageUrl;
+  var imageUrl = "https://picsum.photos/200";
   var width;
-  var flag1 = 1;
-  var flag2 = 1;
+  var flag1 = false;
+  var flag2 = false;
   var mobno;
-  var coordinates;
+  UserObject _mem = UserObject();
+  var coordinates = "20E 30N";
   TextEditingController name = new TextEditingController();
   TextEditingController description = new TextEditingController();
   TextEditingController age = new TextEditingController();
@@ -164,29 +166,29 @@ class _entryState extends State<Addorphan> {
 
     height = MediaQuery.of(context).size.height;
     width = MediaQuery.of(context).size.width;
-    Map args = ModalRoute.of(context)!.settings.arguments as Map;
-    mobno = args['phno'];
+    mobno = _mem.phonenumber;
 
     return Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: AppBar(backgroundColor: Colors.black38, title:Text('Hi Tirumalla Karthik')),
+        appBar: AppBar(backgroundColor: Colors.black38, title:Text('Suraksha Member '+_mem.name)),
         backgroundColor: Colors.white,
         body:
-     Center( child:
-        Column(
+        ListView(
           children: <Widget> [
             SizedBox(
-                height: 50
+              height: height/10,
             ),
-            Text(
+            Center( child: Text(
                 'REPORT ORPHAN',
                 style: TextStyle(fontFamily: 'JosefinSans',fontSize: 20,fontWeight: FontWeight.bold,color: Colors.black),
-            ),
+            )),
             SizedBox(
-                height: 30
+              height: height/10,
             ),
-            Container(
-               width: 250,
+            Align (
+              alignment: Alignment.center,
+             child: Container(
+               width: 300,
                child: TextField(
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
@@ -198,12 +200,14 @@ class _entryState extends State<Addorphan> {
               ),
               controller: name,
               )
-            ),
+            )),
             SizedBox(
-                height: 20
+              height: height/10,
             ),
-            Container(
-             width: 250,
+           Align (
+             alignment: Alignment.center,
+             child: Container(
+             width: 300,
              child: TextField(
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
@@ -215,12 +219,14 @@ class _entryState extends State<Addorphan> {
               ),
               controller: age,
             )
-           ),
+           )),
             SizedBox(
-                height: 20
+              height: height/10,
             ),
-            Container(
-              width: 250,
+           Align(
+            alignment: Alignment.center,
+            child: Container(
+              width: 300,
               child: TextField(
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
@@ -231,59 +237,69 @@ class _entryState extends State<Addorphan> {
                   )
               ),
               controller: description,
-             )),
+              ))),
             SizedBox(
-                height: 20
+              height: height/10,
             ),
-            /*
-            flag1==0?
-            Container(child: Text('Coordinates: $coordinates ',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20))):
-            Container(
+            Align(
+              alignment: Alignment.center,
+              child:
+              flag1?
+              Container(child: Text('Coordinates: $coordinates ',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20))):
+              Container(
                 child:
                 ElevatedButton(
                     child: Icon(Icons.add_location_alt),
                     onPressed:
                         () {
-                       addlocation();
+                       //addlocation();
+                          setState(() {
+                            flag1= !flag1;
+                          });
                     }
                 )
-            ),
-            SizedBox(
-                height: 50
-            ),
-            flag2==0? Expanded(
-                child:
-                Container(child: Image.network(imageUrl.toString())))
+             )),
+             SizedBox(
+              height: height/10,
+             ),
+
+            flag2? Container(
+                child: Image.network(imageUrl))
             :
-            Container(
+            Align(
+                alignment: Alignment.center,
+                child:
+             Container(
                 child:
                 FloatingActionButton(
                     child: Icon(Icons.add_a_photo),
                     onPressed:
                         () {
-                          addimage();
+                          //addimage();
+                          setState(() {
+                            flag2 = !flag2;
+                          });
                     }
-                )
-            ),
+            ))),
             SizedBox(
-                height: 20
+              height: height/10,
             ),
+         Align(
+          alignment: Alignment.center,
+          child:
             ElevatedButton(
                 child: Text('Notify NGOs'),
-                onPressed:
-                    ()
-                {
-                  uploadtofirestore(context);
+                onPressed: () {
+                  //uploadtofirestore(context);
+                  Navigator.pop(context);
                 }
-            ),
-            SizedBox(
-              height: 50
-            )
-            */
+            )),
+          SizedBox(
+            height: height/10
+          )
           ],
         )
-       )
-    );
+       );
 
   }
 

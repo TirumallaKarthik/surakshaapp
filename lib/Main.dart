@@ -1,12 +1,13 @@
 
 import 'package:flutter/material.dart';
-import 'package:surakshaapp/scripts/Login.dart';
-import 'package:surakshaapp/scripts/Memberbase.dart';
-import 'package:surakshaapp/scripts/New.dart';
-import 'package:surakshaapp/scripts/Ngobase.dart';
-import 'package:surakshaapp/scripts/Add.dart';
-import 'package:surakshaapp/scripts/Tag.dart';
-import 'package:surakshaapp/scripts/Orphan.dart';
+import 'package:surakshaapp/templates/Login.dart';
+import 'package:surakshaapp/templates/Memberbase.dart';
+import 'package:surakshaapp/templates/New.dart';
+import 'package:surakshaapp/templates/Ngobase.dart';
+import 'package:surakshaapp/templates/Addorphan.dart';
+import 'package:surakshaapp/templates/Tag.dart';
+import 'package:surakshaapp/templates/Orphan.dart';
+import 'package:surakshaapp/Splash.dart';
 
 
 void main() {
@@ -14,16 +15,16 @@ void main() {
       MaterialApp(
           initialRoute: '/',
           routes: {
-            'Login':(context)=>LandLogin(), //home //working fine
-            'Member':(context)=>Memberentry(),
-            'Ngo':(context)=>Ngoentry(),
-            'Add':(context)=>Addorphan(),
-            'Tag':(context)=>Tagorphan(),
-            'Orphan':(context)=>Orphanprofile(),
-            'New':(context)=>New()
+           'Login':(context)=>Login(), //home //working fine
+           'Member':(context)=>Memberentry(),
+           // 'Ngo':(context)=>Ngoentry(),
+           'AddOrphan':(context)=>Addorphan(),
+           // 'Tag':(context)=>Tagorphan(),
+           // 'Orphan':(context)=>Orphanprofile(),
+           // 'New':(context)=>New()
           },
           debugShowCheckedModeBanner: false,
-          home: LandLogin()
+          home: Splash()
       )
   );
 }

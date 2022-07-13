@@ -42,6 +42,7 @@ dependencies:
   firebase_core: any
   flutter_signin_button: ^2.0.0
   geolocator: ^8.2.0
+  custom_splash:
 
 dev_dependencies:
   flutter_test:
