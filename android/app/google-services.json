@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1027889644454",
+    "project_id": "surakshaapp-60e55",
+    "storage_bucket": "surakshaapp-60e55.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1027889644454:android:1af32e7e1ed078dcd8c567",
+        "android_client_info": {
+          "package_name": "com.safar.surakshaapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1027889644454-ivues1jhitfqjg8u3hr7a2c9o9ndlbh5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.safar.surakshaapp",
+            "certificate_hash": "8b21847fe8174b1aff180d1af6534c31e99c52fd"
+          }
+        },
+        {
+          "client_id": "1027889644454-qdeo82d8d23hs8kvsoiat3fhbv618b91.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1axMVfs-a4n3MdpLpQZIEOa0uXG_HOZk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1027889644454-qdeo82d8d23hs8kvsoiat3fhbv618b91.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
