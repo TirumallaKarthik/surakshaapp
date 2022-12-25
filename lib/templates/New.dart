@@ -1,147 +1,145 @@
-//
-// import 'dart:io';
-//
-// import 'package:cloud_firestore/cloud_firestore.dart';
-// import 'package:flutter/cupertino.dart';
-// import 'package:flutter/material.dart';
-//
-// class New extends StatelessWidget {
-//
-//   var height;
-//   var width;
-//   var phonenumber;
-//   var mailid;
-//   TextEditingController namecon = new TextEditingController();
-//   TextEditingController statecon = new TextEditingController();
-//
-//
-//   checkfirst_phno(var mobno,BuildContext context) async
-//   {
-//     await FirebaseFirestore.instance.collection('users').doc(mobno).get().then((DocumentSnapshot documentSnapshot) {
-//       if (documentSnapshot.exists) {
-//         print('Document exists on the database');
-//            var mem_params = documentSnapshot.data as Map;
-//            Navigator.pushNamed(context, 'Member', arguments: {'phno':phonenumber,'params':mem_params});
-//       }
-//       else{
-//         print("entry does not exist");
-//         return Text("Document doesnot exist");
-//       }
-//     });
-//
-//   }
-//
-//
-//
-//
-//   @override
-//   Widget build(BuildContext context) {
-//
-//     height = MediaQuery.of(context).size.height;
-//     width = MediaQuery.of(context).size.width;
-//
-//     Map args = ModalRoute.of(context)!.settings.arguments as Map;
-//
-//     print("Switched to New Activity");
-//
-//     if(args['type']=='Member')
-//       {
-//         phonenumber = args['key'];
-//         print("obtained user: $phonenumber");
-//       }else{
-//         mailid = args['key'];
-//         print("obtained user: $mailid");
-//     }
-//
-//     Navigator.pushNamed(context, 'Member', arguments: {'phno':phonenumber});
-//
-//     print("checking if entry exists");
-//
-//     return Container(
-//         child:
-//         FutureBuilder<dynamic>(
-//             builder: (context, snapshot){
-//               if(snapshot.connectionState == ConnectionState.waiting){
-//                    return Center(child: CircularProgressIndicator());
-//                 }
-//               return Center(child: register(context));
-//
-//             },
-//             future: checkfirst_phno(phonenumber,context)
-//         )
-//     );
-//
-//
-//   }
-//
-//   //Widgets
-//
-//   Widget register(BuildContext context)
-//   {
-//      return Scaffold(
-//          resizeToAvoidBottomInset: false,
-//          appBar: AppBar(backgroundColor: Colors.black38, title: Center(child:Text('Suraksha'))),
-//          backgroundColor: Colors.white,
-//          body: Center(
-//              child:
-//
-//              Container(
-//                height: height / 2,
-//                width: width / 2,
-//                child:
-//
-//                Column(
-//                  mainAxisAlignment: MainAxisAlignment.center,
-//                  children: <Widget>[
-//                    Text('Fill up', style: TextStyle(fontFamily: 'Staatliches',fontSize: 30,color: Colors.green)),
-//                    SizedBox(
-//                      height: height / 10,
-//                    ),
-//                    TextField(
-//                      keyboardType: TextInputType.text,
-//                      decoration: InputDecoration(
-//                          labelText: 'Name',
-//                          hintText: 'Enter your full name',
-//                          border: OutlineInputBorder(
-//                              borderRadius: BorderRadius.circular(50)
-//                          )
-//                      ),
-//                      controller: namecon,
-//                    ),
-//                    SizedBox(
-//                      height: height / 10,
-//                    ),
-//                    TextField(
-//                      keyboardType: TextInputType.text,
-//                      decoration: InputDecoration(
-//                          labelText: 'State',
-//                          hintText: 'Enter your state',
-//                          border: OutlineInputBorder(
-//                              borderRadius: BorderRadius.circular(50)
-//                          )
-//                      ),
-//                      controller: statecon,
-//                    ),
-//                    TextButton(onPressed: ()  {
-//                      var mem_params = {
-//                        'name':namecon.text,
-//                        'state':statecon.text,
-//                        'orphans_rep':0,
-//                        'orphans':{}
-//                      };
-//                      FirebaseFirestore.instance.collection('users').doc(phonenumber).set(
-//                          mem_params).then( (document){
-//                        print('added document $phonenumber and navigating to member activity');
-//                      });
-//                      Navigator.pushNamed(context, 'Member', arguments: {'phno':phonenumber});
-//                    },
-//                        child: Text('Go', style: TextStyle(
-//                            color: Colors.purple, fontSize: 18.0),))
-//                  ],
-//                ),
-//              )
-//          )
-//      );
-//   }
-//
-// }
+
+import 'dart:io';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:surakshaapp/DBObject.dart';
+import 'package:surakshaapp/Scripts/Index.dart';
+import 'package:surakshaapp/Databasecon.dart';
+import 'package:surakshaapp/templates/Builders.dart';
+class New extends StatelessWidget {
+
+  late var height;
+  late var width;
+  Index idx = new Index();
+  late var user;
+  late List<Orphanobject> orphanlst;
+  TextEditingController namecon = new TextEditingController();
+  TextEditingController statecon = new TextEditingController();
+
+
+  // checkfirst_phno(var mobno,BuildContext context) async
+  // {
+  //   await FirebaseFirestore.instance.collection('users').doc(mobno).get().then((DocumentSnapshot documentSnapshot) {
+  //     if (documentSnapshot.exists) {
+  //       print('Document exists on the database');
+  //          var mem_params = documentSnapshot.data as Map;
+  //          Navigator.pushNamed(context, 'Member', arguments: {'phno':phonenumber,'params':mem_params});
+  //     }
+  //     else{
+  //       print("entry does not exist");
+  //       return Text("Document doesnot exist");
+  //     }
+  //   });
+  //
+  // }
+
+
+
+
+  @override
+  Widget build(BuildContext context) {
+
+    height = MediaQuery.of(context).size.height;
+    width = MediaQuery.of(context).size.width;
+
+    Map args = ModalRoute.of(context)!.settings.arguments as Map;
+    debugPrint("Switched to New Activity with $args");
+
+    return SizedBox(
+        height: height,
+        width: width,
+        child:
+        FutureBuilder<dynamic>(
+            builder: (context, snapshot){
+              if(snapshot.connectionState == ConnectionState.waiting){
+                   debugPrint("checking if entry exists ${args['id']} ${args['type']}");
+                   return Center(child: CircularProgressIndicator());
+                }
+              else if(snapshot.connectionState == ConnectionState.done) {
+                if(snapshot.hasData)
+                  {
+                     debugPrint("entry exists ${args['id']} ${args['type']} ${snapshot.data}");
+                     debugPrint("entry value ${snapshot.data[0].phonenumber} ${snapshot.data[0].name}");
+                     user = snapshot.data[0];
+                     WidgetsBinding.instance!.addPostFrameCallback((_){
+                       // Add Your Code here.
+                       var route = args['type']=='member'?'Memberentry':'Ngoentry';
+                       Navigator.pushReplacementNamed(context, route, arguments: {'user':user});
+                     });
+
+                  }
+                else{
+                  debugPrint("entry does not exist ${args['id']} ${args['type']}");
+                  return Center(child: register(context,args));
+                }
+              }
+
+              return Container();
+
+            },
+            future: idx.getuserdetails(args['type'],args['id'])
+        )
+    );
+
+
+  }
+
+  //Widgets
+
+  Widget register(BuildContext context,Map arguments)
+  {
+     return Scaffold(
+         resizeToAvoidBottomInset: false,
+         appBar: AppBar(backgroundColor: Colors.black38, title: Center(child:Text('Suraksha'))),
+         backgroundColor: Colors.white,
+         body: Center(
+             child:
+
+             Container(
+               height: height / 2,
+               width: width / 2,
+               child:
+
+               Column(
+                 mainAxisAlignment: MainAxisAlignment.center,
+                 children: <Widget>[
+                   TextBuilder('Fill up','Staatliches',30.0,FontWeight.normal,Colors.green).builder(),
+                   SizedBox(
+                     height: height / 10,
+                   ),
+                   TextInputBuilder(TextInputType.text, 'Name','Enter your full name',  BorderRadius.circular(50), namecon).builder(),
+                   SizedBox(
+                     height: height / 10,
+                   ),
+                   TextInputBuilder(TextInputType.text, 'State','Enter your state',  BorderRadius.circular(50), statecon).builder(),
+                   TextButton(onPressed: () {
+                     //add document to the user db
+                    WidgetsBinding.instance!.addPostFrameCallback((_) {
+                      if (arguments['type'] == 'member') {
+                        user = Memberobject(
+                            namecon.text, statecon.text, 0, arguments['id']);
+                        Firestore.insertdocument(arguments['type'], user);
+                        Navigator.pushReplacementNamed(context, 'Memberentry',
+                            arguments: {'user': user});
+                      }
+                      else {
+                        user = Ngoobject(
+                            namecon.text, statecon.text, 0, arguments['id']);
+                        Firestore.insertdocument(arguments['type'], user);
+                        Navigator.pushReplacementNamed(context, 'Ngoentry',
+                            arguments: {'user': user});
+                      }
+                    });
+
+                     },
+                    child: TextBuilder('Go','Staatliches',18.0,FontWeight.normal,Colors.purple).builder(),
+                   )],
+               ),
+             )
+         )
+     );
+  }
+
+}

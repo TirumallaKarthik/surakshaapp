@@ -31,18 +31,20 @@ dependencies:
   carousel_pro: ^1.0.0
   carousel_slider: ^4.0.0
   otp_text_field: ^1.1.1
-  firebase_storage: any
+  firebase_storage: "^10.0.2"
   firebase_analytics: any
+  flutter_sms: any
   image_picker: any
   permission_handler: ^9.2.0
   google_sign_in: any
-  flutter_mailer: ^2.0.0
+  flutter_email_sender: any
   firebase_auth: ^3.3.10
   cloud_firestore: ^3.1.10
-  firebase_core: any
+  firebase_core: ^1.10.2
   flutter_signin_button: ^2.0.0
   geolocator: ^8.2.0
-  custom_splash:
+  geocoding: ^2.0.4
+  splashscreen: any
 
 dev_dependencies:
   flutter_test:
