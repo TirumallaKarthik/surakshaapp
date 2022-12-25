@@ -61,7 +61,6 @@ class New extends StatelessWidget {
                 if(snapshot.hasData)
                   {
                      debugPrint("entry exists ${args['id']} ${args['type']} ${snapshot.data}");
-                     debugPrint("entry value ${snapshot.data[0].phonenumber} ${snapshot.data[0].name}");
                      user = snapshot.data[0];
                      WidgetsBinding.instance!.addPostFrameCallback((_){
                        // Add Your Code here.
