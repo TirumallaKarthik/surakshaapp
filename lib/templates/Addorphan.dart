@@ -26,8 +26,8 @@ class _entryState extends State<Addorphan> {
   Member mem = new Member();
   var flag1 = false;
   var flag2 = false;
-  var imageurl = "https://picsum.photos/200";
-  var coordinates = "30 N 20 E";
+  late var imageurl;
+  late var coordinates;
   TextEditingController name = new TextEditingController();
   TextEditingController description = new TextEditingController();
   TextEditingController age = new TextEditingController();
@@ -37,8 +37,6 @@ class _entryState extends State<Addorphan> {
 
   @override
   Widget build(BuildContext context) {
-
-
 
     height = MediaQuery.of(context).size.height;
     width = MediaQuery.of(context).size.width;

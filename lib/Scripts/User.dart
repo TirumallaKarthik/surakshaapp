@@ -17,9 +17,11 @@ class User{
     var result = [];
     debugPrint('getting results');
     var doc = await Firestore.getdoc(type, userid);
-    result.add(type=='member'?Memberobject(doc?['name'],doc?['state'],int.parse(doc?['orphans_reported']),doc?['phonenumber']):Ngoobject(doc?['name'],doc?['state'],int.parse(doc?['orphans_adopted']),doc?['mailid']));
-    debugPrint('user entry $result');
-    return result.length!=0?result:null;
+    debugPrint('user entry ${doc.toString()}');
+    if (doc == null) {
+      return null;
+    }
+    return type == 'member' ? Memberobject(doc?['name'], doc?['state'], int.parse(doc?['orphans_reported']), doc?['phonenumber']) : Ngoobject(doc?['name'], doc?['state'], int.parse(doc?['orphans_adopted']), doc?['mailid']);
   }
 
   Future<dynamic> signout() async {
@@ -82,6 +84,7 @@ class Member extends User{
           FirebaseAuth.instance.signInWithCredential(authCredential).then(
                   (result){
                 Navigator.pushNamed(context, 'New', arguments: {'id':result.user!.phoneNumber,'type':'member'});
+
               }
           );
         },

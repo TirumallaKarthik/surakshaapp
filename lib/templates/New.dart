@@ -7,24 +7,35 @@ import 'package:surakshaapp/DBObject.dart';
 import 'package:surakshaapp/Databasecon.dart';
 import 'package:surakshaapp/templates/Builders.dart';
 import 'package:surakshaapp/Scripts/User.dart';
+import 'package:async/async.dart';
 
-class New extends StatelessWidget {
+class New extends StatefulWidget {
+
+  @override
+  _entryState createState() => _entryState();
+}
+
+class _entryState extends State<New> {
 
   late var height;
   late var width;
   User idx = new User();
-  late var user;
+  var user;
+  var args;
+  late var checknewuser = idx.getuserdetails(args['id'],args['type']);
+
   late List<Orphanobject> orphanlst;
   TextEditingController namecon = new TextEditingController();
   TextEditingController statecon = new TextEditingController();
 
+
   @override
   Widget build(BuildContext context) {
-
+    args = ModalRoute.of(context)!.settings.arguments as Map;
     height = MediaQuery.of(context).size.height;
     width = MediaQuery.of(context).size.width;
 
-    Map args = ModalRoute.of(context)!.settings.arguments as Map;
+
     debugPrint("Switched to New Activity with $args");
 
     return SizedBox(
@@ -41,7 +52,7 @@ class New extends StatelessWidget {
                 if(snapshot.hasData)
                   {
                      debugPrint("entry exists ${args['id']} ${args['type']} ${snapshot.data}");
-                     user = snapshot.data[0];
+                     user = snapshot.data;
                      WidgetsBinding.instance!.addPostFrameCallback((_){
                        // Add Your Code here.
                        var route = args['type']=='member'?'Memberentry':'Ngoentry';
@@ -58,7 +69,7 @@ class New extends StatelessWidget {
               return Container();
 
             },
-            future: idx.getuserdetails(args['id'],args['type'])
+            future: checknewuser
         )
     );
 
