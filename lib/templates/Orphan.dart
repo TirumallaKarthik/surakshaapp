@@ -1,16 +1,10 @@
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:otp_text_field/otp_field.dart';
-import 'package:otp_text_field/style.dart';
-import 'package:carousel_pro/carousel_pro.dart';
-import 'package:flutter_signin_button/flutter_signin_button.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:surakshaapp/DBObject.dart';
 import 'package:surakshaapp/templates/Builders.dart';
+
+
 class Orphanprofile extends StatelessWidget {
 
 
@@ -79,21 +73,6 @@ class Orphanprofile extends StatelessWidget {
 
         )
     );
-
-    // return Container(
-    //     child:
-    //     orphanprofile(context)
-      // FutureBuilder<dynamic>(
-      //     builder: (context, snapshot){
-      //       if(snapshot.hasData)
-      //       { return snapshot.data;}
-      //
-      //       return Center(child: CircularProgressIndicator());
-      //     },
-      //     future: getdata()
-      // )
-
-    //);
   }
     ////////////////////widgets
 

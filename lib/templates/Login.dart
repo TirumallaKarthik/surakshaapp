@@ -3,22 +3,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:surakshaapp/templates/Builders.dart';
-import 'package:otp_text_field/otp_field.dart';
-import 'package:otp_text_field/style.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:surakshaapp/DBObject.dart';
-import 'package:surakshaapp/Databasecon.dart';
-import 'package:surakshaapp/Scripts/Index.dart';
+import 'package:surakshaapp/Scripts/User.dart';
 
 class Login extends StatelessWidget {
   ///////////////////////////////instance variables used
   late var height;
   late var width;
-  Index idx = new Index();
-  // late AuthCredential authCred;
-  // late String vefID;
-  // late int smscode;
   late var user;
   bool loginflag=false;
   String? emailid;
@@ -73,7 +64,8 @@ class Login extends StatelessWidget {
         ElevatedButton(
             onPressed: ()async{
               debugPrint('Member login clicked');
-              await idx.phoneauthenticate(context,mobno.text);
+              await Member().phoneauthenticate(context,mobno.text);
+              // Navigator.pushNamed(context, 'New', arguments: {'id':'+918978373698','type':'member'});
             },
             style: ElevatedButton.styleFrom(primary: Colors.green),
             child:
@@ -89,7 +81,7 @@ class Login extends StatelessWidget {
           Buttons.Google,
           onPressed: ()async{
             debugPrint('NGO login clicked');
-            await idx.emailauthenticate(context).then((_){
+            await Ngo().emailauthenticate(context).then((_){
                Navigator.pushNamed(context, 'New', arguments: {'id':FirebaseAuth.instance.currentUser?.email,'type':'ngo'});
             });
             //Navigator.pushNamed(context, 'New', arguments: {'id':'ktirumalla67@gmail.com','type':'ngo'});

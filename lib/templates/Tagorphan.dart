@@ -1,17 +1,10 @@
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:surakshaapp/templates/Builders.dart';
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:otp_text_field/otp_field.dart';
-import 'package:otp_text_field/style.dart';
-import 'package:carousel_pro/carousel_pro.dart';
-import 'package:flutter_signin_button/flutter_signin_button.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:surakshaapp/DBObject.dart';
-import 'package:surakshaapp/Scripts/Index.dart';
+import 'package:surakshaapp/Scripts/User.dart';
 
 
 class Tagorphan extends StatelessWidget {
@@ -22,11 +15,12 @@ class Tagorphan extends StatelessWidget {
   late var width;
   late Ngoobject user;
   late List<Orphanobject> orphanlst;
-  Index idx = new Index();
+  Ngo idx = new Ngo();
   TextEditingController id = new TextEditingController();
 
 
   //////////////////////base
+
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +57,8 @@ class Tagorphan extends StatelessWidget {
                 onPressed: () async
                 {
                   orphanlst.add(await idx.addorphan(user,id:id.text) as Orphanobject);
-                  Navigator.pop(context);
+                  //Navigator.pop(context);
+                  Navigator.pushReplacementNamed(context, 'Ngoentry', arguments: {'user':user});
                 }
             ),
             SizedBox(height:height/8, width:width)

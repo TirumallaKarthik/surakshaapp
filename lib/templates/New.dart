@@ -1,42 +1,22 @@
 
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:surakshaapp/DBObject.dart';
-import 'package:surakshaapp/Scripts/Index.dart';
 import 'package:surakshaapp/Databasecon.dart';
 import 'package:surakshaapp/templates/Builders.dart';
+import 'package:surakshaapp/Scripts/User.dart';
+
 class New extends StatelessWidget {
 
   late var height;
   late var width;
-  Index idx = new Index();
+  User idx = new User();
   late var user;
   late List<Orphanobject> orphanlst;
   TextEditingController namecon = new TextEditingController();
   TextEditingController statecon = new TextEditingController();
-
-
-  // checkfirst_phno(var mobno,BuildContext context) async
-  // {
-  //   await FirebaseFirestore.instance.collection('users').doc(mobno).get().then((DocumentSnapshot documentSnapshot) {
-  //     if (documentSnapshot.exists) {
-  //       print('Document exists on the database');
-  //          var mem_params = documentSnapshot.data as Map;
-  //          Navigator.pushNamed(context, 'Member', arguments: {'phno':phonenumber,'params':mem_params});
-  //     }
-  //     else{
-  //       print("entry does not exist");
-  //       return Text("Document doesnot exist");
-  //     }
-  //   });
-  //
-  // }
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -71,14 +51,14 @@ class New extends StatelessWidget {
                   }
                 else{
                   debugPrint("entry does not exist ${args['id']} ${args['type']}");
-                  return Center(child: register(context,args));
+                  return Center(child: register(context, args));
                 }
               }
 
               return Container();
 
             },
-            future: idx.getuserdetails(args['type'],args['id'])
+            future: idx.getuserdetails(args['id'],args['type'])
         )
     );
 
@@ -119,14 +99,26 @@ class New extends StatelessWidget {
                       if (arguments['type'] == 'member') {
                         user = Memberobject(
                             namecon.text, statecon.text, 0, arguments['id']);
-                        Firestore.insertdocument(arguments['type'], user);
+                        var data = {
+                           'name': user.name,
+                           'state': user.state,
+                           'orphans_reported': 0,
+                           'phonenumber': user.phonenumber
+                         };
+                        Firestore.insertdoc(arguments['type'], data);
                         Navigator.pushReplacementNamed(context, 'Memberentry',
                             arguments: {'user': user});
                       }
                       else {
                         user = Ngoobject(
                             namecon.text, statecon.text, 0, arguments['id']);
-                        Firestore.insertdocument(arguments['type'], user);
+                        var data = {
+                           'name': user.name,
+                           'state': user.state,
+                           'orphans_adopted': 0,
+                           'mailid': user.mailid
+                         };
+                        Firestore.insertdoc(arguments['type'], data);
                         Navigator.pushReplacementNamed(context, 'Ngoentry',
                             arguments: {'user': user});
                       }

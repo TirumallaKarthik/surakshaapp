@@ -43,7 +43,9 @@ dependencies:
   flutter_signin_button: ^2.0.0
   geolocator: ^8.2.0
   geocoding: ^2.0.4
+  twilio_flutter: ^0.0.5
   splashscreen: any
+  mailer: any
 
 dev_dependencies:
   flutter_test:

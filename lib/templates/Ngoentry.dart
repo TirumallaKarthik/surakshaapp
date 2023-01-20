@@ -2,12 +2,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:surakshaapp/Scripts/Index.dart';
 import 'package:flutter/material.dart';
 import 'package:surakshaapp/DBObject.dart';
 import 'package:surakshaapp/templates/Builders.dart';
-
 import 'package:surakshaapp/Databasecon.dart';
+import 'package:surakshaapp/Scripts/User.dart';
 
 class Ngoentry extends StatefulWidget {
 
@@ -24,7 +23,7 @@ class _entryState extends State<Ngoentry> {
   TextEditingController namecon = new TextEditingController();
   TextEditingController statecon = new TextEditingController();
   List<Orphanobject> orphanslist = [];
-  Index idx = new Index();
+  Ngo idx = new Ngo();
 
   ///////////////////base
   @override
@@ -76,26 +75,11 @@ class _entryState extends State<Ngoentry> {
 
           );
 
-    // return Container(
-    //     child:
-    //     FutureBuilder<dynamic>(
-    //         builder: (context, snapshot){
-    //           if(snapshot.hasData)
-    //           { return snapshot.data;}
-    //
-    //           return Center(child: CircularProgressIndicator());
-    //         },
-    //         future: checkfirst(emailid,context)
-    //     )
-    // );
-
   }
 
   ///////////////////widgets
 
   Widget home(BuildContext context){
-    //orphanslist.add(Orphanobject());
-
 
     List<Map<String,dynamic>> obj = [
       {'padding':EdgeInsets.zero,'child':Image.asset('assets/ca1.jpg',height: height/4,width: width/2),'decoration':BoxDecoration()},
@@ -120,7 +104,7 @@ class _entryState extends State<Ngoentry> {
               }
               return Container();
             },
-            future: Firestore.getorphandocumentsbyuser(user))
+            future: Firestore.getorphandoc(user,'adoptedid',user.mailid))
         ]
     );
   }

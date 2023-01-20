@@ -3,22 +3,11 @@
 import 'dart:io';
 import 'package:surakshaapp/templates/Builders.dart';
 import 'package:surakshaapp/DBObject.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:surakshaapp/Scripts/Index.dart';
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:otp_text_field/otp_field.dart';
-import 'package:otp_text_field/style.dart';
-import 'package:carousel_pro/carousel_pro.dart';
-import 'package:flutter_signin_button/flutter_signin_button.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:surakshaapp/DBObject.dart';
+import 'package:surakshaapp/Scripts/User.dart';
+
+
 
 class Addorphan extends StatefulWidget {
 
@@ -33,7 +22,8 @@ class _entryState extends State<Addorphan> {
   late var width;
   late Memberobject user;
   late List<Orphanobject> orphanlst;
-  Index idx = new Index();
+  Orphan orp = new Orphan();
+  Member mem = new Member();
   var flag1 = false;
   var flag2 = false;
   var imageurl = "https://picsum.photos/200";
@@ -42,8 +32,8 @@ class _entryState extends State<Addorphan> {
   TextEditingController description = new TextEditingController();
   TextEditingController age = new TextEditingController();
 
-
   //////////////////////base
+
 
   @override
   Widget build(BuildContext context) {
@@ -116,7 +106,7 @@ class _entryState extends State<Addorphan> {
                       }
                       return Container();
                   },
-                  future: idx.getlocation(context))
+                  future: orp.getlocation(context))
                 :
                 Container(
                   child:
@@ -157,7 +147,7 @@ class _entryState extends State<Addorphan> {
                   }
                   return Container();
                 },
-                future: idx.getimage(context,name.text))
+                future: orp.getimage(context,name.text))
                 :
               Align(
                   alignment: Alignment.center,
@@ -186,7 +176,7 @@ class _entryState extends State<Addorphan> {
                 onPressed: () {
                   Orphanobject orphan = new Orphanobject(name.text, int.parse(age.text), description.text, coordinates, 'Not Yet', user.name, imageurl);
                   orphanlst.add(orphan);
-                  idx.addorphan(user,orphan:orphan);
+                  mem.addorphan(user, orphan:orphan);
                   Navigator.of(context).pushReplacementNamed('Memberentry',arguments: {'user':user,'orphanslist':orphanlst});
                 }
             )),

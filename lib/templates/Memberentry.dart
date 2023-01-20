@@ -3,11 +3,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:surakshaapp/Scripts/Index.dart';
 import 'package:flutter/material.dart';
 import 'package:surakshaapp/DBObject.dart';
 import 'package:surakshaapp/Databasecon.dart';
 import 'package:surakshaapp/templates/Builders.dart';
+import 'package:surakshaapp/Scripts/User.dart';
 
 class Memberentry extends StatefulWidget {
 
@@ -20,7 +20,7 @@ class _entryState extends State<Memberentry> {
   late var width;
   late Memberobject user;
   int selected=0;
-  Index idx = new Index();
+  Member idx = new Member();
   List<Orphanobject> orphanslist = [];
 
   ///////////////////base
@@ -32,9 +32,9 @@ class _entryState extends State<Memberentry> {
     Map args = ModalRoute.of(context)!.settings.arguments as Map;
     user = args['user'];
     debugPrint('Unique Id of the member is ${user.phonenumber}');
-    setState(() {
-      orphanslist;
-    });
+    // setState(() {
+    //   orphanslist;
+    // });
 
 
     return Scaffold(
@@ -104,7 +104,7 @@ class _entryState extends State<Memberentry> {
             }
             return Container();
          },
-         future: Firestore.getorphandocumentsbyuser(user))
+         future: Firestore.getorphandoc(user,'reportedid',user.phonenumber))
        ]
      );
   }
