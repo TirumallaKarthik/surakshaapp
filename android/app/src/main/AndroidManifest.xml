@@ -4,9 +4,10 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
    <application
         android:label="surakshaapp"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/suraksha">
         <activity
             android:name=".MainActivity"
             android:exported="true"

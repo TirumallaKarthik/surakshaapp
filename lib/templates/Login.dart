@@ -64,8 +64,8 @@ class Login extends StatelessWidget {
         ElevatedButton(
             onPressed: ()async{
               debugPrint('Member login clicked');
-              //await Member().phoneauthenticate(context,mobno.text);
-              Navigator.pushNamed(context, 'New', arguments: {'id':'+918978373698','type':'member'});
+              await Member().phoneauthenticate(context,mobno.text);
+              // Navigator.pushNamed(context, 'New', arguments: {'id':'+918978373698','type':'member'});
             },
             style: ElevatedButton.styleFrom(primary: Colors.green),
             child:
