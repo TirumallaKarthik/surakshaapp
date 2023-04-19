@@ -17,12 +17,12 @@ class Ngoobject {
 }
 
 class Orphanobject {
-    String name = "Ramesh";
-    int age = 22;
-    String description = "He is found lying on road";
-    var coordinates = "80 E 30 N";
-    var adoptedby = "Ram Seva";
-    var reportedby = "Anand";
-    var imageurl = "https://picsum.photos/200";
+    String name;
+    int age;
+    String description;
+    var coordinates;
+    var adoptedby;
+    var reportedby;
+    var imageurl;
     Orphanobject(this.name,this.age,this.description,this.coordinates,this.adoptedby,this.reportedby,this.imageurl);
 }
